@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <script src="cordova.js"></script>
+        <script src="Plugins/Barcode Scanner/barcodescanner.js"></script>
+        <script src="Plugins/SQLite/SQLitePlugin.js"></script>
+        <script src="kendo/js/jquery.min.js"></script>
+        <script src="kendo/js/kendo.mobile.min.js"></script>
+        <script src="scripts/shoppinglist.js"></script>
+
+        <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+        <link href="styles/main.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div data-role="view" id="tabstrip-scan" data-title="Scan Barcode">
+			<div class="buttonArea">
+				<a data-role="button" id="scanButton" data-icon="camera" data-click="myApp.scan" class="largerButton extraSpace">Scan</a>
+                <div id="scanResult" class="extraSpace" style="font-size: 1.5em; margin: 2em;"></div>
+                <a data-role="button" id="addScanButton" data-icon="add" data-click="addScannedItem" class="largerButton extraSpace" style="display: none;">Add</a>
+			</div>
+        </div>
+        
+        <div data-role="view" id="tabstrip-list" data-title="Shopping List">
+            <div class="buttonArea">
+                <input class="inputBox" type="text" id="txtItem" placeholder="Add New Item" />
+                <a id="addButton" data-role="button" data-click="addItem" data-icon="add" class="largerButton"></a>
+            </div>
+            <div id="itemContainer">
+                <ul id="activeItemList"></ul>
+            </div>
+        </div>
+        
+        <div data-role="view" id="tabstrip-done" data-title="Completed">
+            <ul id="completedItemList"></ul>
+            <div class="completedButton">
+                <a data-role="button" data-click="myApp.clearCompleted" class="largerButton extraSpace" style="margin: 1em auto .4em auto;">Clear Completed</a>
+            </div>
+        </div>
+
+        <div data-role="layout" data-id="mobile-tabstrip">
+            <header data-role="header">
+                <div data-role="navbar">
+                    <span data-role="view-title"></span>
+                </div>
+            </header>
+
+            <div data-role="footer">
+                <div data-role="tabstrip">
+                    <a href="#tabstrip-scan" data-icon="camera">Scan</a>
+                    <a href="#tabstrip-list" data-icon="bookmarks">List</a>
+                    <a href="#tabstrip-done" data-icon="cart">Done</a>
+                </div>
+            </div>
+        </div>
+
+        <script id="list-template" type="text/x-kendo-template">
+            <span>#: item_name #<a data-role='detailbutton' data-click='markComplete' data-id='#:id#' data-icon='check'></a></span>
+        </script>
+        <script id="completed-list-template" type="text/x-kendo-template">
+            <span>#: item_name #</span>
+        </script>
+    </body>
+</html>
